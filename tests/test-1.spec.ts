@@ -1,0 +1,32 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.historia.net/de-de/');
+  await page.getByRole('button', { name: 'Alles akzeptieren' }).click();
+  await page.getByRole('link', { name: 'Jahrgangsmusik CD 1920-' }).click();
+  await page.getByLabel('Option wählen …').locator('span').nth(1).click();
+  await page.getByRole('option', { name: '1932' }).click();
+  await page.locator('label').filter({ hasText: 'Nein' }).click();
+  await page.locator('#product-addtocart-button').click();
+  await page.getByTitle('Go to Checkout').click();
+  await page.goto('https://www.historia.net/de-de/checkout/#shipping');
+  await page.getByRole('textbox', { name: 'E-Mail-Adresse **' }).click();
+  await page.getByRole('textbox', { name: 'E-Mail-Adresse **' }).fill('testes@gmail.com');
+  await page.getByLabel('Anrede').click();
+  await page.getByLabel('Anrede').fill('test');
+  await page.getByLabel('Vorname').fill('st');
+  await page.getByLabel('Vorname').click();
+  await page.getByLabel('Vorname').fill('stt');
+  await page.getByLabel('Nachname').fill('t');
+  await page.getByLabel('Nachname').click();
+  await page.getByLabel('Nachname').fill('ttest');
+  await page.locator('#OTLDV96').click();
+  await page.locator('#OTLDV96').fill('test');
+  await page.getByLabel('PLZ').click();
+  await page.getByLabel('PLZ').fill('33333');
+  await page.getByLabel('Stadt').click();
+  await page.getByLabel('Stadt').fill('test');
+  await page.getByRole('row', { name: 'DHL GoGreen - Lieferzeit' }).locator('div').click();
+  await page.getByRole('button', { name: 'Fortsetzen' }).click();
+  await page.locator('label').filter({ hasText: 'Vorauskasse - Versand erfolgt' }).click();
+});
